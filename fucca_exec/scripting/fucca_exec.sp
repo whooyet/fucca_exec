@@ -22,10 +22,6 @@ public OnPluginStart()
 	CvarUGC = CreateConVar("ugc", "66", "66 99");
 	GetConVarString(CvarUGC, g_strugc, sizeof(g_strugc));
 	HookConVarChange(CvarUGC, ConVarChanged);
-	
-	// RegConsoleCmd("sm_ugc", pug);
-	
-	map = CreateArray(120);
 }
 
 public OnMapEnd()
@@ -34,11 +30,12 @@ public OnMapEnd()
 }
 
 public OnConfigsExecuted()
-{	
+{
 	new Handle:hl = CreateKeyValues("99");
 	FileToKeyValues(hl, match);
 	
 	decl String:file[120];
+	map = CreateArray(120);
 	
 	KvGetString(hl, "99_cp", file, sizeof(file));
 	PushArrayString(map, file);
@@ -80,17 +77,18 @@ stock SetConfig(String:ugc[])
 	{
 		if(IsCpMap())
 		{
-			GetArrayString(map, 0, config, sizeof(config));
+			if(map != INVALID_HANDLE) GetArrayString(map, 0, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 		else if(IsPlMap())
 		{
-			GetArrayString(map, 1, config, sizeof(config));
+		
+			if(map != INVALID_HANDLE) GetArrayString(map, 1, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 		else if(IsKothMap())
 		{
-			GetArrayString(map, 2, config, sizeof(config));
+			if(map != INVALID_HANDLE) GetArrayString(map, 2, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 	}
@@ -98,17 +96,17 @@ stock SetConfig(String:ugc[])
 	{
 		if(IsCpMap())
 		{
-			GetArrayString(map, 3, config, sizeof(config));
+			if(map != INVALID_HANDLE) GetArrayString(map, 3, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 		else if(IsPlMap())
 		{
-			GetArrayString(map, 4, config, sizeof(config));
+			if(map != INVALID_HANDLE) GetArrayString(map, 4, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 		else if(IsKothMap())
 		{
-			GetArrayString(map, 5, config, sizeof(config));
+			if(map != INVALID_HANDLE) GetArrayString(map, 5, config, sizeof(config));
 			ServerCommand("exec %s", config);
 		}
 	}
